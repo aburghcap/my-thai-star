@@ -11,26 +11,20 @@ import net.sf.mmm.util.entity.api.PersistenceEntity;
 import net.sf.mmm.util.transferobject.api.AbstractTransferObject;
 import net.sf.mmm.util.transferobject.api.TransferObject;
 
+import io.oasp.application.mtsj.general.common.base.AbstractBeanMapperSupport;
 import io.oasp.module.jpa.common.api.to.PaginatedListTo;
 
 /**
- * Abstract base class for any management implementation class in this application.
+ * Common code utilities for both AbstractUc and AbstractComponentFacade
+ *
  */
-public abstract class AbstractComponentFacade extends AbstractGenericEntityUtils {
-
+public class AbstractGenericEntityUtils extends AbstractBeanMapperSupport {
   /**
+   * 
    * The limit for {@link net.sf.mmm.util.search.base.AbstractSearchCriteria#getMaximumHitCount() maximum hit count} for
    * UI requests.
    */
   protected static final int MAXIMUM_HIT_LIMIT = 500;
-
-  /**
-   * The constructor.
-   */
-  public AbstractComponentFacade() {
-
-    super();
-  }
 
   /**
    * Maps a {@link PaginatedListTo paginated list} of persistent entities to a {@link PaginatedListTo paginated list} of

@@ -56,13 +56,16 @@ public abstract class BaseWebSecurityConfig extends WebSecurityConfigurerAdapter
   @Override
   public void configure(HttpSecurity http) throws Exception {
 
-    String[] unsecuredResources = new String[] { "/login", "/security/**", "/services/rest/login",
-    "/services/rest/logout", "/services/rest/dishmanagement/**", "/services/rest/imagemanagement/**",
-    "/services/rest/ordermanagement/v1/order", "/services/rest/bookingmanagement/v1/booking",
-    "/services/rest/bookingmanagement/v1/booking/cancel/**",
+    String[] unsecuredResources = new String[] { //
+    "/login", "/security/**", "/services/rest/login", "/services/rest/logout", //
+    "/services/rest/dishmanagement/**", //
+    "/services/rest/imagemanagement/**", "/services/rest/ordermanagement/v1/order", //
+    "/services/rest/bookingmanagement/v1/booking", "/services/rest/bookingmanagement/v1/booking/cancel/**",
     "/services/rest/bookingmanagement/v1/invitedguest/accept/**",
     "/services/rest/bookingmanagement/v1/invitedguest/decline/**",
-    "/services/rest/ordermanagement/v1/order/cancelorder/**"};
+    "/services/rest/ordermanagement/v1/order/cancelorder/**", //
+    "/services/rest/suppliermanagement/**" //
+    };
 
     http.userDetailsService(this.userDetailsService).csrf().disable().exceptionHandling().and().sessionManagement()
         .sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().authorizeRequests()
@@ -83,8 +86,10 @@ public abstract class BaseWebSecurityConfig extends WebSecurityConfigurerAdapter
   @SuppressWarnings("javadoc")
   public void configure(AuthenticationManagerBuilder auth) throws Exception {
 
-    auth.inMemoryAuthentication().withUser("waiter").password("waiter").roles("Waiter").and().withUser("user0")
-        .password("password").roles("Customer");
+    auth.inMemoryAuthentication()//
+        .withUser("waiter").password("waiter").roles("Waiter").and() //
+        .withUser("manager").password("manager").roles("Manager").and() //
+        .withUser("user0").password("password").roles("Customer");
   }
 
 }

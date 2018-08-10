@@ -4,7 +4,9 @@ import java.security.Principal;
 
 public enum Role implements Principal {
 
-  WAITER("Waiter"), CUSTOMER("Customer");
+  WAITER("Waiter"), //
+  MANAGE_SUPPLIERS("ManageSuppliers"), //
+  CUSTOMER("Customer");
 
   private final String name;
 
