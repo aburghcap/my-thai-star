@@ -64,6 +64,7 @@ public abstract class BaseWebSecurityConfig extends WebSecurityConfigurerAdapter
     "/services/rest/bookingmanagement/v1/invitedguest/accept/**",
     "/services/rest/bookingmanagement/v1/invitedguest/decline/**",
     "/services/rest/ordermanagement/v1/order/cancelorder/**", //
+    "/h2-console/**", //
     "/services/rest/suppliermanagement/**" //
     };
 
@@ -75,7 +76,11 @@ public abstract class BaseWebSecurityConfig extends WebSecurityConfigurerAdapter
         .addFilterBefore(new JWTLoginFilter("/login", authenticationManager()),
             UsernamePasswordAuthenticationFilter.class)
         // other requests are filtered to check the presence of JWT in header
-        .addFilterBefore(new JWTAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
+        .addFilterBefore(new JWTAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class) //
+        // for H2 web console to prevent from failing with 'X-Frame-Options' to 'deny'. following
+        // https://docs.spring.io/spring-security/site/docs/current/reference/html/headers.html
+        .headers().frameOptions().sameOrigin().httpStrictTransportSecurity().disable();
+    ;
 
     if (this.corsEnabled) {
       http.addFilterBefore(getCorsFilter(), CsrfFilter.class);
