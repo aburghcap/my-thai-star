@@ -33,8 +33,12 @@ import io.oasp.application.mtsj.bookingmanagement.logic.api.to.BookingEto;
 import io.oasp.application.mtsj.bookingmanagement.logic.api.to.BookingSearchCriteriaTo;
 import io.oasp.application.mtsj.bookingmanagement.logic.api.to.InvitedGuestEto;
 import io.oasp.application.mtsj.bookingmanagement.logic.api.to.InvitedGuestSearchCriteriaTo;
+import io.oasp.application.mtsj.bookingmanagement.logic.api.to.SpecialPackageEto;
+import io.oasp.application.mtsj.bookingmanagement.logic.api.to.SpecialPackageSearchCriteriaTo;
 import io.oasp.application.mtsj.bookingmanagement.logic.api.to.TableEto;
 import io.oasp.application.mtsj.bookingmanagement.logic.api.to.TableSearchCriteriaTo;
+import io.oasp.application.mtsj.bookingmanagement.logic.api.usecase.UcFindSpecialPackage;
+import io.oasp.application.mtsj.bookingmanagement.logic.api.usecase.UcManageSpecialPackage;
 import io.oasp.application.mtsj.general.common.api.constants.Roles;
 import io.oasp.application.mtsj.general.logic.base.AbstractComponentFacade;
 import io.oasp.application.mtsj.mailservice.Mail;
@@ -89,6 +93,12 @@ public class BookingmanagementImpl extends AbstractComponentFacade implements Bo
 
   @Inject
   private Mail mailService;
+
+  @Inject
+  private UcFindSpecialPackage ucFindSpecialPackage;
+
+  @Inject
+  private UcManageSpecialPackage ucManageSpecialPackage;
 
   /**
    * The constructor.
@@ -478,8 +488,8 @@ public class BookingmanagementImpl extends AbstractComponentFacade implements Bo
       guestMailContent.append("Guest CODE: ").append(guest.getGuestToken()).append("\n");
       guestMailContent.append("Booking Date: ").append(booking.getBooking().getBookingDate()).append("\n");
 
-      String cancellationLink =
-          "http://localhost:" + this.clientPort + "/booking/rejectInvite/" + guest.getGuestToken();
+      String cancellationLink = "http://localhost:" + this.clientPort + "/booking/rejectInvite/"
+          + guest.getGuestToken();
 
       guestMailContent.append("To cancel invite: ").append(cancellationLink).append("\n");
       this.mailService.sendMail(guest.getEmail(), "Invite accepted", guestMailContent.toString());
@@ -564,6 +574,30 @@ public class BookingmanagementImpl extends AbstractComponentFacade implements Bo
     Long now = Timestamp.from(Instant.now()).getTime();
 
     return (now > cancellationLimit) ? false : true;
+  }
+
+  @Override
+  public SpecialPackageEto findSpecialPackage(Long id) {
+
+    return this.ucFindSpecialPackage.findSpecialPackage(id);
+  }
+
+  @Override
+  public PaginatedListTo<SpecialPackageEto> findSpecialPackageEtos(SpecialPackageSearchCriteriaTo criteria) {
+
+    return this.ucFindSpecialPackage.findSpecialPackageEtos(criteria);
+  }
+
+  @Override
+  public SpecialPackageEto saveSpecialPackage(SpecialPackageEto specialpackage) {
+
+    return this.ucManageSpecialPackage.saveSpecialPackage(specialpackage);
+  }
+
+  @Override
+  public boolean deleteSpecialPackage(Long id) {
+
+    return this.ucManageSpecialPackage.deleteSpecialPackage(id);
   }
 
 }

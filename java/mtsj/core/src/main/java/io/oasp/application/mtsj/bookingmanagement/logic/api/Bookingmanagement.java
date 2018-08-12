@@ -10,12 +10,14 @@ import io.oasp.application.mtsj.bookingmanagement.logic.api.to.InvitedGuestEto;
 import io.oasp.application.mtsj.bookingmanagement.logic.api.to.InvitedGuestSearchCriteriaTo;
 import io.oasp.application.mtsj.bookingmanagement.logic.api.to.TableEto;
 import io.oasp.application.mtsj.bookingmanagement.logic.api.to.TableSearchCriteriaTo;
+import io.oasp.application.mtsj.bookingmanagement.logic.api.usecase.UcFindSpecialPackage;
+import io.oasp.application.mtsj.bookingmanagement.logic.api.usecase.UcManageSpecialPackage;
 import io.oasp.module.jpa.common.api.to.PaginatedListTo;
 
 /**
  * Interface for Bookingmanagement component.
  */
-public interface Bookingmanagement {
+public interface Bookingmanagement extends UcFindSpecialPackage, UcManageSpecialPackage {
 
   /**
    * Returns a Booking by its id 'id'.
