@@ -15,6 +15,8 @@ import io.oasp.application.mtsj.bookingmanagement.logic.api.to.BookingEto;
 import io.oasp.application.mtsj.bookingmanagement.logic.api.to.BookingSearchCriteriaTo;
 import io.oasp.application.mtsj.bookingmanagement.logic.api.to.InvitedGuestEto;
 import io.oasp.application.mtsj.bookingmanagement.logic.api.to.InvitedGuestSearchCriteriaTo;
+import io.oasp.application.mtsj.bookingmanagement.logic.api.to.SpecialPackageEto;
+import io.oasp.application.mtsj.bookingmanagement.logic.api.to.SpecialPackageSearchCriteriaTo;
 import io.oasp.application.mtsj.bookingmanagement.logic.api.to.TableEto;
 import io.oasp.application.mtsj.bookingmanagement.logic.api.to.TableSearchCriteriaTo;
 import io.oasp.module.jpa.common.api.to.PaginatedListTo;
@@ -155,4 +157,65 @@ public interface BookingmanagementRestService {
   @Path("/table/search")
   @POST
   public PaginatedListTo<TableEto> findTablesByPost(TableSearchCriteriaTo searchCriteriaTo);
+
+  /**
+   * Delegates to {@link Bookingmanagement#findSpecialPackage}.
+   *
+   * @param id the ID of the {@link SpecialPackageEto}
+   * @return the {@link SpecialPackageEto}
+   */
+  @GET
+  @Path("/specialpackage/{id}/")
+  public SpecialPackageEto getSpecialPackage(@PathParam("id") long id);
+
+  /**
+   * Delegates to {@link Bookingmanagement#saveSpecialPackage}.
+   *
+   * @param specialpackage the {@link SpecialPackageEto} to be saved
+   * @return the recently created {@link SpecialPackageEto}
+   */
+  @POST
+  @Path("/specialpackage/")
+  public SpecialPackageEto saveSpecialPackage(SpecialPackageEto specialpackage);
+
+  /**
+   * Delegates to {@link Bookingmanagement#deleteSpecialPackage}.
+   *
+   * @param id ID of the {@link SpecialPackageEto} to be deleted
+   */
+  @DELETE
+  @Path("/specialpackage/{id}/")
+  public void deleteSpecialPackage(@PathParam("id") long id);
+
+  /**
+   * Delegates to {@link Bookingmanagement#findSpecialPackageEtos}.
+   *
+   * @param searchCriteriaTo the pagination and search criteria to be used for finding specialpackages.
+   * @return the {@link PaginatedListTo list} of matching {@link SpecialPackageEto}s.
+   */
+  @Path("/specialpackage/search")
+  @POST
+  public PaginatedListTo<SpecialPackageEto> findSpecialPackagesByPost(SpecialPackageSearchCriteriaTo searchCriteriaTo);
+
+  /**
+   * Delegates to {@link Bookingmanagement#findSpecialPackageCto}.
+   *
+   * @param id the ID of the {@link SpecialPackageCto}
+   * @return the {@link SpecialPackageCto}
+   */
+  // @GET
+  // @Path("/specialpackage/cto/{id}/")
+  // public SpecialPackageCto getSpecialPackageCto(@PathParam("id") long id);
+
+  /**
+   * Delegates to {@link Bookingmanagement#findSpecialPackageCtos}.
+   *
+   * @param searchCriteriaTo the pagination and search criteria to be used for finding specialpackages.
+   * @return the {@link PaginatedListTo list} of matching {@link SpecialPackageCto}s.
+   */
+  // @Path("/specialpackage/cto/search")
+  // @POST
+  // public PaginatedListTo<SpecialPackageCto> findSpecialPackageCtosByPost(
+  // SpecialPackageSearchCriteriaTo searchCriteriaTo);
+
 }

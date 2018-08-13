@@ -34,4 +34,14 @@
       <b is-accessible="true">persistentEntity</b>
     </field>
   </mapping>
+  <mapping> 
+    <class-a>io.oasp.application.mtsj.bookingmanagement.logic.api.to.SpecialPackageEto</class-a> 
+    <class-b>io.oasp.application.mtsj.bookingmanagement.dataaccess.api.SpecialPackageEntity</class-b> 
+    <field> 
+      <a set-method="setPackagePerson">packagePerson</a> 
+      <b set-method="setPackagePerson"> packagePerson </b> 
+      <a-hint>io.oasp.application.mtsj.bookingmanagement.logic.api.to.PackagePersonEto</a-hint> 
+      <b-hint>io.oasp.application.mtsj.bookingmanagement.dataaccess.api.PackagePersonEmbeddable</b-hint> 
+    </field> 
+  </mapping> 
 </mappings>

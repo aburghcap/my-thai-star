@@ -12,6 +12,8 @@ import io.oasp.application.mtsj.bookingmanagement.logic.api.to.BookingEto;
 import io.oasp.application.mtsj.bookingmanagement.logic.api.to.BookingSearchCriteriaTo;
 import io.oasp.application.mtsj.bookingmanagement.logic.api.to.InvitedGuestEto;
 import io.oasp.application.mtsj.bookingmanagement.logic.api.to.InvitedGuestSearchCriteriaTo;
+import io.oasp.application.mtsj.bookingmanagement.logic.api.to.SpecialPackageEto;
+import io.oasp.application.mtsj.bookingmanagement.logic.api.to.SpecialPackageSearchCriteriaTo;
 import io.oasp.application.mtsj.bookingmanagement.logic.api.to.TableEto;
 import io.oasp.application.mtsj.bookingmanagement.logic.api.to.TableSearchCriteriaTo;
 import io.oasp.module.jpa.common.api.to.PaginatedListTo;
@@ -114,6 +116,30 @@ public class BookingmanagementRestServiceImpl implements BookingmanagementRestSe
   public void cancelInvite(String bookingToken) {
 
     this.bookingmanagement.cancelInvite(bookingToken);
+  }
+
+  @Override
+  public SpecialPackageEto getSpecialPackage(long id) {
+
+    return this.bookingmanagement.findSpecialPackage(id);
+  }
+
+  @Override
+  public SpecialPackageEto saveSpecialPackage(SpecialPackageEto specialpackage) {
+
+    return this.bookingmanagement.saveSpecialPackage(specialpackage);
+  }
+
+  @Override
+  public void deleteSpecialPackage(long id) {
+
+    this.bookingmanagement.deleteSpecialPackage(id);
+  }
+
+  @Override
+  public PaginatedListTo<SpecialPackageEto> findSpecialPackagesByPost(SpecialPackageSearchCriteriaTo searchCriteriaTo) {
+
+    return this.bookingmanagement.findSpecialPackageEtos(searchCriteriaTo);
   }
 
 }
